@@ -1,0 +1,23 @@
+{
+  "name": "employer-website-generater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrostirolla/employer-website-generater.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrostirolla/employer-website-generater/issues"
+  },
+  "homepage": "https://github.com/jrostirolla/employer-website-generater#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2"
+  }
+}
