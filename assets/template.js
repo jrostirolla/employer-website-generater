@@ -1,4 +1,8 @@
 
+let htmlBuilder = () => {
+
+
+
 let Template = `
 <!DOCTYPE html>
 <html>
@@ -15,6 +19,7 @@ let Template = `
 </body>
 </html>
 `
+}
 
 
 module.exports = Template;
