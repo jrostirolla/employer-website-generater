@@ -69,15 +69,112 @@ let addNew = function employee() {
         ]
     }).then((answers) => {
         if (answers.employeeSelector === 'Engineer') {
-            console.log('Engineer selected, function successful')
+            // console.log('Engineer selected, function successful')
+            engineerBuilder();
         } else if (answers.employeeSelector === 'Intern') {
-            console.log('Intern selected, function successful')
+            // console.log('Intern selected, function successful')
+            internBuilder();
         } else if (answers.employeeSelector === 'None, I changed my mind') {
-            console.log('None option selected, function successful')
+            // console.log('None option selected, function successful')
+//TODO: complete this section
+            inquirer
+            .prompt([{
+                type: 'confirm',
+                name: 'changedMind',
+                message: 'Are you sure? This will exit the program: ',
+                default: true
+            }]).then((answers) => {
+                if (answers.changedMind === true) {
+                    return console.log('program terminated - line 88')
+                } else if (answers.changedMind === false) {
+                    addNew();
+                }
+            })
         } else {
-            console.log('Error... not sure what happened there...')
+            // console.log('Error... not sure what happened there...')
         }
 })
 };
+
+let engineerBuilder = () => {
+    console.log(`
+    ========
+    Engineer
+    ========
+    `)
+    inquirer
+    .prompt([
+        {
+        type: 'input',
+        name: 'engineerName',
+        message: "Please provide your engineers name: "
+    }, {
+        type: 'input',
+        name: 'engineerId',
+        message: "Employee ID: ",
+    }, {
+        type: 'input',
+        name: 'engineerEmail',
+        message: "Email address: "
+    }, {
+        type: 'input',
+        name: 'engineerGithub',
+        message: "Github username: "
+    }, {
+        type: 'confirm',
+        name: 'engineerConfirm',
+        message: "Do you wish to add another employee?",
+        default: true
+    }
+    ]).then((answers) => {
+    if (answers.engineerConfirm === true) {
+        addNew();
+    } else if (answers.engineerConfirm === false) {
+        console.log('Code stopped here - line 125')
+    } else {
+        console.log('error - line 127')
+    }
+})
+}
+
+let internBuilder = () => {
+    console.log(`
+    ======
+    Intern
+    ======
+    `)
+    inquirer
+    .prompt([{
+        type: 'input',
+        name: 'internName',
+        message: "Please provide your interns name: "
+    }, {
+        type: 'input',
+        name: 'internId',
+        message: "Employee ID: ",
+    }, {
+        type: 'input',
+        name: 'internEmail',
+        message: "Email address: "
+    }, {
+        type: 'input',
+        name: 'internSchool',
+        message: "Educational Institute: "
+    }, {
+        type: 'confirm',
+        name: 'internConfirm',
+        message: "Do you wish to add another employee?",
+        default: true
+    }
+    ]).then((answers) => {
+    if (answers.internConfirm === true) {
+        addNew();
+    } else if (answers.internConfirm === false) {
+        console.log('Code stopped here - line 165')
+    } else {
+        console.log('error - line 167')
+    }
+})
+}
 
 init();
