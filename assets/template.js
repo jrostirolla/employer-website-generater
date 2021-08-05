@@ -1,4 +1,5 @@
-let html = `
+
+let Template = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,6 @@ let html = `
 </body>
 </html>
 `
-
 
 
 module.exports = Template;
