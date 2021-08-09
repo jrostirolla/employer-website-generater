@@ -27,12 +27,12 @@ class Intern extends Employee {
 }
 
 //initialiser sequence
-
-
-function init() {
     const employeeList = [];
     const engineerList = [];
     const internList = [];
+
+function init() {
+
 
     console.log(
 `
@@ -155,7 +155,7 @@ let engineerBuilder = () => {
         console.log(engineerList)
     if (answers.engineerConfirm === true) {
         addNew();
-         engineerList;
+         return engineerList;
     } else if (answers.engineerConfirm === false) {
          HTMLBuilder();
     } else {
@@ -417,5 +417,4 @@ htmlContent = (managerTemplate, engineerTemplate, internTemplate) => {
 }
 
 
-init()
-module.exports = init, addNew, engineerBuilder, internBuilder, employeeList;
+module.exports = init, addNew, engineerBuilder, internBuilder, employeeList, engineerList, internList;
