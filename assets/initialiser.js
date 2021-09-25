@@ -2,7 +2,8 @@
 let Employee = require('./employee');
 
 //packages
-let inquirer = require('inquirer')
+let inquirer = require('inquirer');
+let fs = require('fs');
 
 //constructors
 class Manager extends Employee {
@@ -107,7 +108,7 @@ let addNew = () => {
                 default: true
             }]).then((answers) => {
                 if (answers.changedMind === true) {
-                    HTMLBuilder();
+                    HTMLBuilder(employeeList, engineerList, internList);
                 } else if (answers.changedMind === false) {
                     addNew();
                 }
@@ -157,7 +158,7 @@ let engineerBuilder = () => {
         addNew();
          return engineerList;
     } else if (answers.engineerConfirm === false) {
-         HTMLBuilder();
+         HTMLBuilder(employeeList, engineerList, internList);
     } else {
         console.log('error - line 155')
     }
@@ -201,15 +202,28 @@ let internBuilder = () => {
         addNew();
          internList;
     } else if (answers.internConfirm === false) {
-         HTMLBuilder();
+         HTMLBuilder(employeeList, engineerList, internList);
     } else {
         console.log('error - line 196')
     }
 })
-
+}
 // HTML builder
 HTMLBuilder = (employeeList, engineerList, internList) => {
 
+    let engineerName;
+    let engineerRole;
+    let engineerId;
+    let engineerEmail;
+    let engineerGithub;
+
+    let internName;
+    let internRole;
+    let internId;
+    let internEmail;
+    let internSchool;
+
+    console.log("code reached 213")
 
     //manager template
     const manager = employeeList[0];
@@ -236,12 +250,13 @@ HTMLBuilder = (employeeList, engineerList, internList) => {
 //Engineer template
 for (i = 0; i < engineerList.length; i++) {
     const engineer = engineerList[i];
-    const engineerName = engineer[1];
-    const engineerRole = engineer[0];
-    const engineerId = engineer[2];
-    const engineerEmail = engineer[3];
-    const engineerGithub = engineer[4];
-    const engineerTemplate = `
+    engineerName = engineer[1];
+    engineerRole = engineer[0];
+    engineerId = engineer[2];
+    engineerEmail = engineer[3];
+    engineerGithub = engineer[4];
+}    
+const engineerTemplate = `
         <div class="employee-card ">
         <div class="employee-title">
             <h2 id="employeeName">${engineerName}</h2>
@@ -256,16 +271,16 @@ for (i = 0; i < engineerList.length; i++) {
         </div>
         </div>
         `
-}
 
 // Intern template
 for (i = 0; i < internList.length; i++) {
     const intern = internList[i];
-    const internName = intern[1];
-    const internRole = intern[0];
-    const internId = intern[2];
-    const internEmail = intern[3];
-    const internSchool = intern[4];
+ internName = intern[1];
+ internRole = intern[0];
+ internId = intern[2];
+ internEmail = intern[3];
+ internSchool = intern[4];
+}
     const internTemplate = `
         <div class="employee-card ">
         <div class="employee-title">
@@ -281,8 +296,8 @@ for (i = 0; i < internList.length; i++) {
         </div>
         </div>
         `
-}
-htmlContent = (managerTemplate, engineerTemplate, internTemplate) => {
+
+    htmlContent = (managerTemplate, engineerTemplate, internTemplate) => {
     let mainTemplate = `
         <!DOCTYPE html>
         <html>
@@ -406,15 +421,16 @@ htmlContent = (managerTemplate, engineerTemplate, internTemplate) => {
         </body>
         </html>
         `
-            
+    console.log("code reached line 409") 
     fs.writeFile('roster.html', mainTemplate, (err) => 
         err ? console.log(err) : console.log("Your new roster has now been written")
     )
 
-        }
-    
+        }  
+    htmlContent(managerTemplate, engineerTemplate, internTemplate);
 }  
-}
+
+
 
 
 module.exports = init, addNew, engineerBuilder, internBuilder, employeeList, engineerList, internList;
