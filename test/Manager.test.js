@@ -20,7 +20,7 @@ describe('Manager builder', () => {
         const managerNew = new Manager(`${title}`, `${id}`, `${email}`, `${phone}`);
         employeeList.push({...managerNew});
 
-        expect(employeeList[0]).toContain({"email": "test@email.com", "id": "Standard ID", "name": "Terry", "phone": "test", "role": "Manager"});
+        expect(employeeList[0]).toEqual({"email": "test@email.com", "id": "Standard ID", "name": "Terry", "phone": "test", "role": "Manager"});
     })
 })
 

@@ -34,7 +34,6 @@ class Intern extends Employee {
 
 function init() {
 
-
     console.log(
 `
 ==============================
@@ -73,7 +72,6 @@ inquirer
     }
 ]).then((answers) => {
     const managerNew = new Manager(`${answers.name}`, `${answers.id}`, `${answers.email}`, `${answers.phone}`);
-    //const manager = [managerNew.role, managerNew.name, managerNew.id, managerNew.email, managerNew.phone]
     employeeList.push({...managerNew});
         addNew();
          employeeList;
@@ -92,14 +90,10 @@ let addNew = () => {
         ]
     }).then((answers) => {
         if (answers.employeeSelector === 'Engineer') {
-            // console.log('Engineer selected, function successful')
             engineerBuilder();
         } else if (answers.employeeSelector === 'Intern') {
-            // console.log('Intern selected, function successful')
             internBuilder();
         } else if (answers.employeeSelector === 'None, I changed my mind') {
-            // console.log('None option selected, function successful')
-//TODO: complete this section
             inquirer
             .prompt([{
                 type: 'confirm',
@@ -151,9 +145,7 @@ let engineerBuilder = () => {
     }
     ]).then((answers) => {
         const engineerNew = new Engineer(`${answers.name}`, `${answers.id}`, `${answers.email}`, `${answers.github}`);
-       // const engineer = [engineerNew.role, engineerNew.name, engineerNew.id, engineerNew.email, engineerNew.github]
        engineerList.push({...engineerNew});
-        console.log(engineerList)
     if (answers.engineerConfirm === true) {
         addNew();
          return engineerList;
@@ -196,7 +188,6 @@ let internBuilder = () => {
     }
     ]).then((answers) => {
         const internNew = new Intern(`${answers.name}`, `${answers.id}`, `${answers.email}`, `${answers.school}`);
-       // const intern = [internNew.role, internNew.name, internNew.id, internNew.email, internNew.school];
        internList.push({...internNew});
     if (answers.internConfirm === true) {
         addNew();
@@ -210,94 +201,74 @@ let internBuilder = () => {
 }
 // HTML builder
 HTMLBuilder = (employeeList, engineerList, internList) => {
-
-    let engineerName;
-    let engineerRole;
-    let engineerId;
-    let engineerEmail;
-    let engineerGithub;
-
-    let internName;
-    let internRole;
-    let internId;
-    let internEmail;
-    let internSchool;
-
-    console.log("code reached 213")
-
     //manager template
     const manager = employeeList[0];
-    const managerName = manager[1];
-    const managerId = manager[2];
-    const managerEmail = manager[3];
-    const managerPhone = manager[4];
+
     const managerTemplate = `
         <div class="manager-card ">
         <div class="card-title">
-            <h2>${managerName}</h2>
+            <h2>${manager.name}</h2>
             <h3>Manager </h3>
         </div>
         <div>
             <ul class="card-list">
-                <li>ID: <span>${managerId}</span></li>
-                <li>Email: <span>${managerEmail}</span></li>
-                <li>Phone: <span>${managerPhone}</span></li>
+                <li>ID: <span>${manager.id}</span></li>
+                <li>Email: <span>${manager.email}</span></li>
+                <li>Phone: <span>${manager.phone}</span></li>
             </ul>
         </div>
         </div>
         `
 
 //Engineer template
+let modEngineer = [];
+
 for (i = 0; i < engineerList.length; i++) {
     const engineer = engineerList[i];
-    engineerName = engineer[1];
-    engineerRole = engineer[0];
-    engineerId = engineer[2];
-    engineerEmail = engineer[3];
-    engineerGithub = engineer[4];
-}    
-const engineerTemplate = `
+
+    const engineerTemplate = `
         <div class="employee-card ">
         <div class="employee-title">
-            <h2 id="employeeName">${engineerName}</h2>
-            <h3 id="employeeRole">${engineerRole}</h3>
+            <h2 id="employeeName">${engineer.name}</h2>
+            <h3 id="employeeRole">${engineer.role}</h3>
         </div>
         <div>
             <ul class="card-list">
-                <li>ID: <span id="employeeId">${engineerId}</span></li>
-                <li>Email: <span id="employeeEmail">${engineerEmail}</span></li>
-                <li>Github: <span id="employeeExtra">${engineerGithub}</span></li>
+                <li>ID: <span id="employeeId">${engineer.id}</span></li>
+                <li>Email: <span id="employeeEmail">${engineer.email}</span></li>
+                <li>Github: <span id="employeeExtra">${engineer.github}</span></li>
             </ul>
         </div>
         </div>
         `
+        modEngineer.push(engineerTemplate);
+}    
 
 // Intern template
+let modInterns = [];
+
 for (i = 0; i < internList.length; i++) {
     const intern = internList[i];
- internName = intern[1];
- internRole = intern[0];
- internId = intern[2];
- internEmail = intern[3];
- internSchool = intern[4];
-}
-    const internTemplate = `
+
+        const internTemplate = `
         <div class="employee-card ">
         <div class="employee-title">
-            <h2 id="employeeName">${internName}</h2>
-            <h3 id="employeeRole">${internRole}</h3>
+            <h2 id="employeeName">${intern.name}</h2>
+            <h3 id="employeeRole">${intern.role}</h3>
         </div>
         <div>
             <ul class="card-list">
-                <li>ID: <span id="employeeId">${internId}</span></li>
-                <li>Email: <span id="employeeEmail">${internEmail}</span></li>
-                <li>School: <span id="employeeExtra">${internSchool}</span></li>
+                <li>ID: <span id="employeeId">${intern.id}</span></li>
+                <li>Email: <span id="employeeEmail">${intern.email}</span></li>
+                <li>School: <span id="employeeExtra">${intern.school}</span></li>
             </ul>
         </div>
         </div>
         `
+        modInterns.push(internTemplate);
+}
 
-    htmlContent = (managerTemplate, engineerTemplate, internTemplate) => {
+    htmlContent = (managerTemplate, modInterns, modEngineer) => {
     let mainTemplate = `
         <!DOCTYPE html>
         <html>
@@ -408,10 +379,10 @@ for (i = 0; i < internList.length; i++) {
         
         <h4>Employees</h4>
         <!-- Engineer cards -->
-        ${engineerTemplate}
+        ${modEngineer.join(" ")}
         
         <!-- Intern cards -->
-        ${internTemplate}
+        ${modInterns.join(" ")}
         
             </main>
         
@@ -421,13 +392,13 @@ for (i = 0; i < internList.length; i++) {
         </body>
         </html>
         `
+
     console.log("code reached line 409") 
     fs.writeFile('roster.html', mainTemplate, (err) => 
         err ? console.log(err) : console.log("Your new roster has now been written")
     )
-
         }  
-    htmlContent(managerTemplate, engineerTemplate, internTemplate);
+    htmlContent(managerTemplate, modInterns, modEngineer);
 }  
 
 

@@ -20,7 +20,7 @@ describe('Intern builder', () => {
         const intern = new Intern(`${title}`, `${id}`, `${email}`, `${school}`);
         employeeList.push({...intern});
 
-        expect(employeeList[0]).toContain({"email": "test@email.com", "id": "Standard ID", "name": "Terry", "school": "UNSW", "role": "Engineer"});
+        expect(employeeList[0]).toEqual({"email": "test@email.com", "id": "Standard ID", "name": "Terry", "school": "UNSW", "role": "Intern"});
     })
 })
 

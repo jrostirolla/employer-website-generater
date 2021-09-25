@@ -20,7 +20,7 @@ describe('Engineer builder', () => {
         const engineer = new Engineer(`${title}`, `${id}`, `${email}`, `${github}`);
         employeeList.push({...engineer});
 
-        expect(employeeList[0]).toContain({"email": "test@email.com", "id": "Standard ID", "name": "Terry", "github": "trusty", "role": "Engineer"});
+        expect(employeeList[0]).toEqual({"email": "test@email.com", "id": "Standard ID", "name": "Terry", "github": "trusty", "role": "Engineer"});
     })
 })
 
